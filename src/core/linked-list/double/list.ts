@@ -1,9 +1,9 @@
-import {DLNode} from "~core/linked-list/double/node";
+import DLNode from "~core/linked-list/double/node";
 
 /**
  * @description Класс двустороннего списка.
  */
-export class DoubleLinkedList<T> {
+export default class DoubleLinkedList<T> {
 	#first: DLNode<T> | null;
 	#last: DLNode<T> | null;
 

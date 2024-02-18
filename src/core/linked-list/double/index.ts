@@ -1,1 +1,1 @@
-export {DoubleLinkedList} from '~core/linked-list/double/list';
+export {default} from '~core/linked-list/double/list';

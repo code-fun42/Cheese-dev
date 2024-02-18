@@ -1,7 +1,7 @@
 /**
  * @description Узел двустороннего списка.
  */
-export class DLNode<T> {
+export default class DLNode<T> {
 	public prev: DLNode<T> | null;
 	public next: DLNode<T> | null;
 	public data: T;
@@ -11,4 +11,4 @@ export class DLNode<T> {
 		this.prev = null;
 		this.next = null;
 	}
-}
+};
