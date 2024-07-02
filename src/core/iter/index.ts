@@ -1,6 +1,5 @@
-import {asyncForeach} from "~core/iter/async";
-
-export {asyncForeach};
+export {asyncForeach} from "~core/iter/async";
+export {iterInterval} from "~core/iter/async";
 
 export default class Iter<T> {
 	readonly #iter: Iterable<T>
@@ -15,7 +14,7 @@ export default class Iter<T> {
 
 		return {
 			next(): IteratorResult<T> {
-				console.log("syncIter");
+				// console.log("syncIter");
 				return iter.next();
 			}
 		};
@@ -27,7 +26,7 @@ export default class Iter<T> {
 
 		return {
 			next() {
-				console.log("asyncIter");
+				// console.log("asyncIter");
 				return Promise.resolve(iter.next());
 			},
 

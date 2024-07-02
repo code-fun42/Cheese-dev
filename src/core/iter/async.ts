@@ -42,3 +42,27 @@ export function asyncForeach<T>(
 		}
 	};
 }
+
+export function iterInterval<T>(iterable: AsyncIterable<T>, interval: number) {
+	const
+		iter = iterable[Symbol.asyncIterator]();
+
+	return {
+		[Symbol.asyncIterator]() {
+			return this;
+		},
+
+		async next() {
+			const res = iter.next();
+
+			await new Promise((resolve, reject) => {
+				const timer = setTimeout(() => {
+					clearTimeout(timer);
+					resolve(res);
+				}, interval);
+			})
+
+			return Promise.resolve(res);
+		}
+	}
+}

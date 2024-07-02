@@ -13,6 +13,11 @@ export interface NetConfig {
 	checkInterval?: number;
 
 	/**
+	 * @description Timeout одного запроса.
+	 */
+	timeout?: number;
+
+	/**
 	 * @description Число повторов соединения.
 	 */
 	retryCount?: number;

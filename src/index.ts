@@ -1,20 +1,35 @@
-import {Queue} from "~core/queue";
-import Deque from "~core/queue/deque";
+// import {isOnline} from "~core/net";
+//
+import {iterInterval} from "~core/iter";
 
-const deque = new Deque([10, 20, 30]);
-// const deque = new Deque();
+const successCallback = () => {
+	console.log("successCallback");
+};
 
-// deque.insertFirst(30);
-// deque.insertFirst(20);
-// deque.insertFirst(10);
-// deque.insertFirst(0);
-// deque.insertLast(40);
+const errorCallback = () => {
+	console.log("errorCallback");
+};
+//
+// isOnline(errorCallback, successCallback)
+// 	.then((data) => {
+// 		console.log("success");
+//
+// 	})
+// 	.catch((err) => {
+// 		console.log("err: ", err);
+// 	});
 
-// 0
-// console.log(deque.removeFirst());
+import {threadOnline} from "~core/net/engines/browser";
 
-// 40
-// console.log(deque.removeLast());
+const threadIter = threadOnline(errorCallback, successCallback);
 
-// [10, 20, 30]
-console.log([...deque]);
+(async () => {
+	if (!threadIter) {
+		return;
+	}
+
+	for await (const status of iterInterval(threadIter, 2000)) {
+		// console.log("Итерация завершилась");
+		console.log(`user in online ${status}`);
+	}
+})();
