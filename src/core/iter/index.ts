@@ -18,19 +18,6 @@ export function map<T, U>(
 			const res = iter.next();
 
 			if (!res.done) {
-				// const
-				// 	value = callback.call(thisArg, res.value, i++, iterable);
-
-				// if (mappedValues[Symbol.iterator]) {
-				// 	return mappedValues[Symbol.iterator]().next();
-				//
-				// } else {
-				// 	return {
-				// 		value: mappedValues,
-				// 		done: false,
-				// 	};
-				// }
-
 				return {
 					value: callback.call(thisArg, res.value, i++, iterable),
 					done: res.done,
@@ -55,10 +42,10 @@ export function filter<T>(
 
 	return {
 		[Symbol.iterator]() {
-         return this;
-      },
+			return this;
+		},
 
-      next() {
+		next() {
 			let
 				res = iter.next(),
 				isCondition = predicate.call(thisArg, res.value, i++, iterable);
@@ -68,13 +55,36 @@ export function filter<T>(
 				isCondition = predicate.call(thisArg, res.value, i++, iterable);
 			}
 
-         // if (!res.done && predicate.call(thisArg, res.value, i++, iterable)) {
-         //    return res;
-         // }
-
-         return res;
-      }
+			return res;
+		}
 	}
+}
+
+export function enumerate<T>(iterable: Iterable<T>) {
+	const
+		iter = iterable[Symbol.iterator]();
+
+	let
+		count = 1;
+
+	return {
+		[Symbol.iterator]() {
+			return this;
+		},
+
+		next() {
+			const res = iter.next();
+
+			if (!res.done) {
+				return {
+					value: [count++, res.value],
+					done: res.done
+				};
+			}
+
+			return res;
+		}
+	};
 }
 
 // export {asyncForeach} from "~core/iter/async";
